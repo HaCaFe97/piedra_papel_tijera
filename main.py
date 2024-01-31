@@ -1,80 +1,31 @@
-import random
+import tkinter as tk
+from formatos_textos import estilos_T1, estilos_T2, estilos_T3, estilos_T4, estilos_T5
 
-rounds = 1
+#Caracteristicas de Ventana
+ventana1 = tk.Tk()
+ventana1.attributes('-zoomed', True)
+ventana1.title("Piedra, Papel o Tijera")
 
-def choose_options():
-  options = ("piedra", "papel", "tijera")
-  user_option = input("piedra, papel o tijera => ")
-  user_option = user_option.lower()
+#Titutlo del programa en label
+titulo = tk.Label(ventana1, estilos_T1)
+titulo.pack(pady=0)
 
-  if user_option not in options:
-    print('Esa opcion no es valida')
-    #continue
-    return None, None
+etiqueta1 = tk.Label(ventana1, estilos_T2)
+etiqueta1.pack(pady=0)
 
-  computer_option = random.choice(options)
+etiqueta2 = tk.Label(ventana1, estilos_T3)
+etiqueta2.pack(pady=0)
 
-  print('User option => ', user_option)
-  print('Computer option => ', computer_option)
-  return user_option, computer_option
+etiqueta3 = tk.Label(ventana1, estilos_T4)
+etiqueta3.pack(pady=0)
 
-def check_rules(user_option, computer_option, user_wins, computer_wins):
-  if user_option == computer_option:
-    print("Empate!")
-  elif user_option == "piedra":
-    if computer_option == "tijera":
-      print("Piedra gana a tijera")
-      print("user gano!")
-      user_wins += 1
-    else:
-      print("Papel gana a piedra")
-      print("computer gano!")
-      computer_wins += 1
-  elif user_option == "papel":
-    if computer_option == "piedra":
-      print("Papel gana a piedra")
-      print("user gano!")
-      user_wins += 1
-    else:
-      print("Tijera gana a papel")
-      print("computer gano!")
-      computer_wins += 1
-  elif user_option == "tijera":
-    if computer_option == "papel":
-      print("Tijera gana a papel")
-      print("user gano!")
-      user_wins += 1
-    else:
-      print("Piedra gana a tijera")
-      print("computer gano!")
-      computer_wins += 1
+etiqueta4= tk.Label(ventana1, estilos_T5)
+etiqueta4.pack(side="bottom", pady=0)
 
-  return user_wins, computer_wins
+#Botones
+boton1 = tk.Button(ventana1, text="Haz clic aquí")
+boton1["command"] = lambda: etiqueta1.config(text='Este botón funciona')
+boton1.pack(pady=0)
 
-def run_game():
-  computer_wins = 0
-  user_wins = 0
-  rounds = 1
-  while True:
-
-    print("*" * 10)
-    print("ROUND", rounds)
-    print("*" * 10)
-
-    print("computer_wins", computer_wins)
-    print("user_wins", user_wins)
-
-    rounds += 1
-
-    user_option, computer_option = choose_options()
-    user_wins, computer_wins = check_rules(user_option, computer_option, user_wins, computer_wins)
-
-    if computer_wins == 2:
-      print("El ganador es la computadora")
-      break
-
-    if user_wins == 2:
-      print("El ganador es el usuario")
-      break
-
-run_game()
+#Loop de ejecución de ventana
+ventana1.mainloop()
