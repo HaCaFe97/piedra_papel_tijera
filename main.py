@@ -3,7 +3,7 @@ from formatos_textos import estilos_T1, estilos_T2, estilos_T3, estilos_T4, esti
 
 #Caracteristicas de Ventana
 ventana1 = tk.Tk()
-ventana1.attributes('-zoomed', True)
+ventana1.state("zoomed")
 ventana1.title("Piedra, Papel o Tijera")
 
 #Titutlo del programa en label
