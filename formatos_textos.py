@@ -28,3 +28,27 @@ estilos_T5 = {
   "font" : ('Times New Roman', 10, 'bold'),
   "foreground" : "gray"
 }
+
+estilos_T6 = {
+  "text" : "Victorias del \njugador",
+  "font" : ('Times New Roman', 12, 'bold'),
+  "foreground" : "gray"
+}
+
+estilos_T7 = {
+  "text" : "Victorias de \nla computadora",
+  "font" : ('Times New Roman', 12, 'bold'),
+  "foreground" : "gray"
+}
+
+estilos_T8 = {
+  "text" : "0",
+  "font" : ('Times New Roman', 12, 'bold'),
+  "foreground" : "gray"
+}
+
+estilos_T9 = {
+  "text" : "0",
+  "font" : ('Times New Roman', 12, 'bold'),
+  "foreground" : "gray"
+}

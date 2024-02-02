@@ -1,10 +1,10 @@
 import tkinter as tk
-from formatos_textos import estilos_T1, estilos_T2, estilos_T3, estilos_T4, estilos_T5
 from PIL import Image, ImageTk
+from formatos_textos import estilos_T1, estilos_T2, estilos_T3, estilos_T4, estilos_T5, estilos_T6, estilos_T7, estilos_T8, estilos_T9
 
-#Caracteristicas de Ventana
-ventana1 = tk.Tk()
-ventana1.title("Piedra, Papel o Tijera")
+#Ventana principal
+ventana = tk.Tk()
+ventana.title("Piedra, Papel o Tijera")
 
 #Imágenes de los botones
 piedra = Image.open("Piedra.png")
@@ -19,35 +19,72 @@ piedra_tk = ImageTk.PhotoImage(piedra)
 papel_tk = ImageTk.PhotoImage(papel)
 tijera_tk = ImageTk.PhotoImage(tijera)
 
-#Textos en la ventana
-titulo = tk.Label(ventana1, estilos_T1)
-titulo.pack(pady=0)
+# Grid Maestro (_filas_columnas))
+grid_1_2 = tk.Label(ventana)
+grid_1_2.grid(row=1, column=2)
 
-etiqueta1 = tk.Label(ventana1, estilos_T2)
-etiqueta1.pack(pady=0)
+grid_2_2 = tk.Label(ventana)
+grid_2_2.grid(row=2, column=2)
 
-etiqueta2 = tk.Label(ventana1, estilos_T3)
-etiqueta2.pack(pady=0)
+grid_3_2 = tk.Label(ventana)
+grid_3_2.grid(row=3, column=2)
 
-etiqueta3 = tk.Label(ventana1, estilos_T4)
-etiqueta3.pack(pady=0)
+# Interior del grid_1_2
+titulo_lv1 = tk.Frame(grid_1_2)
+tk.Label(titulo_lv1, estilos_T1).grid(row=0, column=0)
+titulo_lv1.grid(row=0, column=0)
 
-etiqueta4= tk.Label(ventana1, estilos_T5)
-etiqueta4.pack(side="bottom", pady=0)
+titulo_lv2 = tk.Frame(grid_1_2)
+tk.Label(titulo_lv2, estilos_T2).grid(row=0, column=0)
+titulo_lv2.grid(row=1, column=0)
 
-#Frame para botones
-frame_botones = tk.Frame(ventana1)
-frame_botones.pack(expand=True)
+titulo_lv3 = tk.Frame(grid_1_2)
+tk.Label(titulo_lv3, estilos_T3).grid(row=0, column=0)
+titulo_lv3.grid(row=2, column=0)
 
-#Botón
-boton1 = tk.Button(frame_botones, image=piedra_tk,text="Piedra")
-boton1.pack(side="left", padx=(0, 5), pady=0)
+texto_std = tk.Frame(grid_1_2)
+tk.Label(texto_std, estilos_T4).grid(row=0, column=0)
+texto_std.grid(row=3, column=0)
 
-boton2 = tk.Button(frame_botones,image=papel_tk, text="Papel")
-boton2.pack(side="left", padx=(0, 5), pady=0)
+#Interior del grid_2_2
 
-boton3 = tk.Button(frame_botones,image=tijera_tk, text="Tijera")
-boton3.pack(side="left", padx=(0, 5), pady=0)
+victorias_jugador = tk.Frame(grid_2_2)
+victorias_jugador.grid(row=0, column=0)
 
-#Loop de ejecución de ventana
-ventana1.mainloop()
+boton_piedra = tk.Button(grid_2_2, image=piedra_tk)
+boton_piedra.grid(row=0, column=1)
+
+boton_papel = tk.Button(grid_2_2, image=papel_tk)
+boton_papel.grid(row=0, column=2)
+
+boton_tijera = tk.Button(grid_2_2, image=tijera_tk)
+boton_tijera.grid(row=0, column=3)
+
+victorias_computadora = tk.Frame(grid_2_2)
+victorias_computadora.grid(row=0, column=4)
+
+#Grid en el grid en el grid
+
+texto_jugador = tk.Frame(victorias_jugador)
+tk.Label(texto_jugador, estilos_T6).grid(row=0, column=0)
+texto_jugador.grid(row=0, column=0)
+
+contador_jugador = tk.Frame(victorias_jugador)
+tk.Label(contador_jugador, estilos_T8).grid(row=0,column=0)
+contador_jugador.grid(row=1, column=0)
+
+texto_computadora = tk.Frame(victorias_computadora)
+tk.Label(texto_computadora, estilos_T7).grid(row=0, column=0)
+texto_computadora.grid(row=0, column=0)
+
+contador_computadora = tk.Frame(victorias_computadora)
+tk.Label(contador_computadora, estilos_T9).grid(row=0, column=0)
+contador_computadora.grid(row=1, column=0)
+
+#Interior del grid_3_2
+
+firma= tk.Label(grid_3_2, estilos_T5)
+firma.grid(row=0, column=0)
+
+# Iniciar el bucle principal de la ventana
+ventana.mainloop()
