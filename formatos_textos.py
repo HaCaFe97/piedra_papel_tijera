@@ -18,37 +18,55 @@ estilos_T3 = {
 }
 
 estilos_T4 = {
-  "text" : "Selecciona una opción",
+  "text" : "Elige una opción:",
   "font" : ('Times New Roman', 12, 'bold'),
   "foreground" : "black"
 }
 
 estilos_T5 = {
-  "text" : "Hecho por HaCaFe97",
-  "font" : ('Times New Roman', 10, 'bold'),
-  "foreground" : "gray"
+  "text" : "RONDA",
+  "font" : ('Times New Roman', 12, 'bold'),
+  "foreground" : "black"
 }
 
 estilos_T6 = {
-  "text" : "Victorias del \njugador",
+  "text" : "La computadora elegirá",
   "font" : ('Times New Roman', 12, 'bold'),
-  "foreground" : "gray"
+  "foreground" : "black"
 }
 
 estilos_T7 = {
-  "text" : "Victorias de \nla computadora",
-  "font" : ('Times New Roman', 12, 'bold'),
-  "foreground" : "gray"
+  "text" : "El jugador escogió",
+  "font" : ('Times New Roman', 12),
+  "foreground" : "black"
 }
 
 estilos_T8 = {
-  "text" : "0",
-  "font" : ('Times New Roman', 12, 'bold'),
-  "foreground" : "gray"
+  "text" : "Ganador de la ronda",
+  "font" : ('Times New Roman', 12),
+  "foreground" : "black"
 }
 
 estilos_T9 = {
-  "text" : "0",
+  "text" : "La computadora escogió",
+  "font" : ('Times New Roman', 12),
+  "foreground" : "black"
+}
+
+estilos_T10 = {
+  "text" : "Victorias del jugador",
+  "font" : ('Times New Roman', 12, 'bold'),
+  "foreground" : "black"
+}
+
+estilos_T11 = {
+  "text" : "Victorias de la computadora",
+  "font" : ('Times New Roman', 12, 'bold'),
+  "foreground" : "black"
+}
+
+estilos_T12 = {
+  "text" : "Hecho por HaCaFe97",
   "font" : ('Times New Roman', 12, 'bold'),
   "foreground" : "gray"
 }
