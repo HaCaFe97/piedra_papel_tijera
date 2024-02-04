@@ -20,13 +20,13 @@ papel_tk = ImageTk.PhotoImage(papel)
 tijera_tk = ImageTk.PhotoImage(tijera)
 
 #Grid Maestro (_filas_columnas)
-grid_titulos = tk.Label(ventana, text="Aqui van los titulos", borderwidth=2, relief="groove")
+grid_titulos = tk.Label(ventana)
 grid_titulos.grid(row=0, column=1)
 
-grid_juego = tk.Label(ventana, text="Aqui van el juego",borderwidth=2, relief="groove")
+grid_juego = tk.Label(ventana)
 grid_juego.grid(row=1, column=1)
 
-grid_firma = tk.Label(ventana, text="Aqui van la firma",borderwidth=2, relief="groove")
+grid_firma = tk.Label(ventana)
 grid_firma.grid(row=2, column=1)
 
 # Interior grid_titulos
@@ -83,40 +83,46 @@ contador_vic_jugador.grid(row=0, column=1)
 
 #Grid del hud de las rondas
 
+boton_inicio = tk.Button(hud_rondas, text="Iniciar")
+boton_inicio.grid(row=0, column=0, pady=5)
+
 mensaje_rondas = tk.Frame(hud_rondas)
 tk.Label(mensaje_rondas, estilos_T5).grid(row=0, column=0)
-mensaje_rondas.grid(row=0, column=0)
+mensaje_rondas.grid(row=1, column=0)
 
 contador_rondas = tk.Frame(hud_rondas)
 tk.Label(contador_rondas, text="0", font=('Times New Roman', 12 ,'bold')).grid(row=0, column=0)
-contador_rondas.grid(row=1, column=0)
+contador_rondas.grid(row=2, column=0)
 
 info_partida = tk.Frame(hud_rondas)
-info_partida.grid(row=2, column=0)
+info_partida.grid(row=3, column=0)
 
 eleccion_jugador = tk.Frame(info_partida)
-tk.Label(eleccion_jugador, estilos_T7).grid(row=0, column=0)
-eleccion_jugador.grid(row=0, column=0)
+tk.Label(eleccion_jugador, estilos_T7, borderwidth=2, relief="groove").grid(row=0, column=0)
+eleccion_jugador.grid(row=0, column=0, padx=5)
 
 eleccion_jugador_dec = tk.Frame(info_partida)
 tk.Label(eleccion_jugador_dec, text="piedrapapeltijera").grid(row=0, column=0)
 eleccion_jugador_dec.grid(row=1, column=0)
 
 ganador_ronda = tk.Frame(info_partida)
-tk.Label(ganador_ronda, estilos_T8).grid(row=0, column=0)
-ganador_ronda.grid(row=0, column=1)
+tk.Label(ganador_ronda, estilos_T8, borderwidth=2, relief="groove").grid(row=0, column=0)
+ganador_ronda.grid(row=0, column=1, padx=5)
 
 ganado_declarado = tk.Frame(info_partida)
 tk.Label(ganado_declarado, text="Ganador").grid(row=0, column=0)
 ganado_declarado.grid(row=1, column=1)
 
 eleccion_computadora = tk.Frame(info_partida)
-tk.Label(eleccion_computadora, estilos_T9).grid(row=0, column=0)
-eleccion_computadora.grid(row=0, column=2)
+tk.Label(eleccion_computadora, estilos_T9, borderwidth=2, relief="groove").grid(row=0, column=0)
+eleccion_computadora.grid(row=0, column=2, padx=5)
 
 eleccion_computadora_dec = tk.Frame(info_partida)
 tk.Label(eleccion_computadora_dec, text="piedrapapeltijera").grid(row=0, column=0)
 eleccion_computadora_dec.grid(row=1, column=2)
+
+boton_reiniciar = tk.Button(hud_rondas, text="Reiniciar")
+boton_reiniciar.grid(row=4, column=0, pady=5)
 
 # Grid del hud de la computadora
 
