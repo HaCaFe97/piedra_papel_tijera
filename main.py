@@ -1,6 +1,11 @@
 import tkinter as tk
 from PIL import Image, ImageTk
 from formatos_textos import estilos_T1, estilos_T2, estilos_T3, estilos_T4, estilos_T5, estilos_T6, estilos_T7, estilos_T8, estilos_T9, estilos_T10, estilos_T11, estilos_T12
+from funciones import correr_juego
+
+def game_start():
+  correr_juego()
+  boton_inicio.config(text="Juego Iniciado")
 
 # Crear la ventana principal
 ventana = tk.Tk()
@@ -83,7 +88,7 @@ contador_vic_jugador.grid(row=0, column=1)
 
 #Grid del hud de las rondas
 
-boton_inicio = tk.Button(hud_rondas, text="Iniciar")
+boton_inicio = tk.Button(hud_rondas, text="Iniciar", command=correr_juego)
 boton_inicio.grid(row=0, column=0, pady=5)
 
 mensaje_rondas = tk.Frame(hud_rondas)
