@@ -3,9 +3,10 @@ from PIL import Image, ImageTk
 from formatos_textos import estilos_T1, estilos_T2, estilos_T3, estilos_T4, estilos_T5, estilos_T6, estilos_T7, estilos_T8, estilos_T9, estilos_T10, estilos_T11, estilos_T12
 from funciones import correr_juego
 
-def game_start():
+def run_game():
+  boton_inicio.config(text="Juego iniciado", state=tk.DISABLED)
+  tk.Label(contador_rondas, text=1, font=('Times New Roman', 12 ,'bold')).grid(row=0, column=0)
   correr_juego()
-  boton_inicio.config(text="Juego Iniciado")
 
 # Crear la ventana principal
 ventana = tk.Tk()
@@ -83,12 +84,12 @@ tk.Label(texto_vic_jugador, estilos_T10).grid(row=0, column=1)
 texto_vic_jugador.grid(row=0, column=0)
 
 contador_vic_jugador = tk.Frame(victorias_jugador)
-tk.Label(contador_vic_jugador, text="0", font=('Times New Roman', 12 ,'bold')).grid(row=0, column=1)
+tk.Label(contador_vic_jugador, text=0, font=('Times New Roman', 12 ,'bold')).grid(row=0, column=1)
 contador_vic_jugador.grid(row=0, column=1)
 
 #Grid del hud de las rondas
 
-boton_inicio = tk.Button(hud_rondas, text="Iniciar", command=correr_juego)
+boton_inicio = tk.Button(hud_rondas, text="Iniciar", command=run_game)
 boton_inicio.grid(row=0, column=0, pady=5)
 
 mensaje_rondas = tk.Frame(hud_rondas)
@@ -96,7 +97,7 @@ tk.Label(mensaje_rondas, estilos_T5).grid(row=0, column=0)
 mensaje_rondas.grid(row=1, column=0)
 
 contador_rondas = tk.Frame(hud_rondas)
-tk.Label(contador_rondas, text="0", font=('Times New Roman', 12 ,'bold')).grid(row=0, column=0)
+tk.Label(contador_rondas, text=0, font=('Times New Roman', 12 ,'bold')).grid(row=0, column=0)
 contador_rondas.grid(row=2, column=0)
 
 info_partida = tk.Frame(hud_rondas)
@@ -155,7 +156,7 @@ tk.Label(texto_vic_computadora, estilos_T11).grid(row=0, column=1)
 texto_vic_computadora.grid(row=0, column=0)
 
 contador_vic_computadora = tk.Frame(victorias_computadora)
-tk.Label(contador_vic_computadora, text="0", font=('Times New Roman', 12 ,'bold')).grid(row=0, column=1)
+tk.Label(contador_vic_computadora, text=0, font=('Times New Roman', 12 ,'bold')).grid(row=0, column=1)
 contador_vic_computadora.grid(row=0, column=1)
 
 #Interior grid_firma
