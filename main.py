@@ -1,167 +1,176 @@
 import tkinter as tk
-from PIL import Image, ImageTk
-from formatos_textos import estilos_T1, estilos_T2, estilos_T3, estilos_T4, estilos_T5, estilos_T6, estilos_T7, estilos_T8, estilos_T9, estilos_T10, estilos_T11, estilos_T12
-from funciones import correr_juego
+import random
 
-def run_game():
-  boton_inicio.config(text="Juego iniciado", state=tk.DISABLED)
-  tk.Label(contador_rondas, text=1, font=('Times New Roman', 12 ,'bold')).grid(row=0, column=0)
-  correr_juego()
+opciones = ["piedra", "papel", "tijera"]
+victorias_jugador = 0
+victorias_computadora = 0
+ronda = 1
+
+def iniciar_juego():
+  btn_iniciar.config(state=tk.DISABLED)  # Deshabilitar el botón iniciar
+  btn_piedra.config(state=tk.NORMAL)
+  btn_papel.config(state=tk.NORMAL)
+  btn_tijera.config(state=tk.NORMAL)
+
+def correr_juego(seleccion_jugador):
+  global victorias_jugador, victorias_computadora, ronda
+  lbl_elec_jugador_def.config(text=seleccion_jugador)
+  seleccion_computadora = random.choice(opciones)
+  lbl_elec_computadora_def.config(text=seleccion_computadora)
+  if seleccion_jugador == seleccion_computadora:
+    lbl_ganador.config(text="Empate")
+  elif (seleccion_jugador == "piedra" and seleccion_computadora == "tijera") or \
+       (seleccion_jugador == "papel" and seleccion_computadora == "piedra") or \
+       (seleccion_jugador == "tijera" and seleccion_computadora == "papel"):
+    lbl_ganador.config(text="Jugador")
+    victorias_jugador += 1
+    lbl_contsvicjugador.config(text=victorias_jugador)
+  else:
+    lbl_ganador.config(text="Computadora")
+    victorias_computadora += 1
+    lbl_contsviccomputadora.config(text=victorias_computadora)
+  ronda +=1
+  lbl_cuentaronda.config(text=str(ronda))
+  if victorias_jugador == 2:
+    lbl_campeondef.config(text="Jugador")
+    btn_piedra.config(state=tk.DISABLED)
+    btn_papel.config(state=tk.DISABLED)
+    btn_tijera.config(state=tk.DISABLED)
+  elif victorias_computadora == 2:
+    lbl_campeondef.config(text="Computadora")
+    btn_piedra.config(state=tk.DISABLED)
+    btn_papel.config(state=tk.DISABLED)
+    btn_tijera.config(state=tk.DISABLED)
+
+def reiniciar_juego():
+  global victorias_jugador, victorias_computadora, ronda
+  victorias_jugador = 0
+  victorias_computadora = 0
+  ronda = 1
+  lbl_elec_jugador_def.config(text="")
+  lbl_elec_computadora_def.config(text="")
+  lbl_ganador.config(text="")
+  lbl_cuentaronda.config(text="1")
+  lbl_campeondef.config(text="")
+  lbl_contsvicjugador.config(text=0)
+  lbl_contsviccomputadora.config(text=0)
+  btn_iniciar.config(state=tk.NORMAL)
 
 # Crear la ventana principal
-ventana = tk.Tk()
-ventana.title("Piedra, Papel o Tijera")
+root = tk.Tk()
+root.title("Piedra, Papel o Tijera")
 
-#Imágenes de los botones
-piedra = Image.open("Piedra.png")
-papel = Image.open("Papel.png")
-tijera = Image.open("Tijera.png")
+# Cargar las imágenes
+img_piedra = tk.PhotoImage(file="Piedra.png").subsample(6)
+img_papel = tk.PhotoImage(file="Papel.png").subsample(6)
+img_tijera = tk.PhotoImage(file="Tijera.png").subsample(6)
 
-piedra = piedra.resize((75, 75))
-papel = papel.resize((75, 75))
-tijera = tijera.resize((75, 75))
+# Titulos
+frame_titulos = tk.Frame(root)
+frame_titulos.grid(row=0, column=1)
 
-piedra_tk = ImageTk.PhotoImage(piedra)
-papel_tk = ImageTk.PhotoImage(papel)
-tijera_tk = ImageTk.PhotoImage(tijera)
+titulo_nv1 = tk.Label(frame_titulos, text="Piedra, Papel o Tijera")
+titulo_nv1.grid(row=0, column=0)
 
-#Grid Maestro (_filas_columnas)
-grid_titulos = tk.Label(ventana)
-grid_titulos.grid(row=0, column=1)
+titulo_nv2 = tk.Label(frame_titulos, text="Juega contra la computadora en un juego de piedra, papel o tijera")
+titulo_nv2.grid(row=1, column=0)
 
-grid_juego = tk.Label(ventana)
-grid_juego.grid(row=1, column=1)
+titulo_nv3 = tk.Label(frame_titulos, text="Quien gane dos de tres rondas, gana el juego")
+titulo_nv3.grid(row=2, column=0)
 
-grid_firma = tk.Label(ventana)
-grid_firma.grid(row=2, column=1)
+# Crear el frame para los botones del jugador
+frame_jugador = tk.Frame(root)
+frame_jugador.grid(row=1, column=0, padx=10, pady=10)
 
-# Interior grid_titulos
-titulo_lv1 = tk.Frame(grid_titulos)
-tk.Label(titulo_lv1, estilos_T1).grid(row=0, column=0)
-titulo_lv1.grid(row=0, column=0)
+# Crear los botones para piedra, papel y tijera para el jugador
+texto_jugador = tk.Frame(frame_jugador)
+texto_jugador.grid(row=0, column=0, padx=5, pady=5)
+lbl_jugador = tk.Label(texto_jugador, text="Elige una opción")
+lbl_jugador.grid(row=0, column=0, padx=5, pady=5)
 
-titulo_lv2 = tk.Frame(grid_titulos)
-tk.Label(titulo_lv2, estilos_T2).grid(row=0, column=0)
-titulo_lv2.grid(row=1, column=0)
+botones_jugador = tk.Frame(frame_jugador)
+botones_jugador.grid(row=1, column=0, padx=5, pady=5)
+btn_piedra = tk.Button(botones_jugador, image=img_piedra, state=tk.DISABLED, command=lambda: correr_juego("piedra"))
+btn_piedra.grid(row=0, column=0, pady=5)
+btn_papel = tk.Button(botones_jugador, image=img_papel, state=tk.DISABLED, command=lambda: correr_juego("papel"))
+btn_papel.grid(row=0, column=1, pady=5)
+btn_tijera = tk.Button(botones_jugador, image=img_tijera, state=tk.DISABLED, command=lambda: correr_juego("tijera"))
+btn_tijera.grid(row=0, column=2, pady=5)
 
-titulo_lv3 = tk.Frame(grid_titulos)
-tk.Label(titulo_lv3, estilos_T3).grid(row=0, column=0)
-titulo_lv3.grid(row=2, column=0)
+contadores_jugador = tk.Frame(frame_jugador)
+contadores_jugador.grid(row=2, column=0, padx=5, pady=5)
+lbl_vicsjugador = tk.Label(contadores_jugador, text="Victorias Jugador: ")
+lbl_vicsjugador.grid(row=0, column=0, padx=5, pady=0)
+lbl_contsvicjugador = tk.Label(contadores_jugador, text=victorias_jugador)
+lbl_contsvicjugador.grid(row=0, column=1, padx=5, pady=0)
 
-# Interior grid_juego
-hud_jugador = tk.Frame(grid_juego)
-hud_jugador.grid(row=0, column=0)
 
-hud_rondas = tk.Frame(grid_juego)
-hud_rondas.grid(row=0, column=1)
+# Crear el frame para los botones de iniciar y reiniciar
+frame_rondas = tk.Frame(root)
+frame_rondas.grid(row=1, column=1, padx=10, pady=10)
 
-hud_computadora = tk.Frame(grid_juego)
-hud_computadora.grid(row=0, column=2)
+# Crear los botones para iniciar y reiniciar
+btn_iniciar = tk.Button(frame_rondas, text="Iniciar", command=iniciar_juego)
+btn_iniciar.grid(row=0, column=0, pady=5)
+lbl_ronda = tk.Label(frame_rondas, text="Ronda")
+lbl_ronda.grid(row=1, column=0, pady=5)
+lbl_cuentaronda = tk.Label(frame_rondas, text=ronda)
+lbl_cuentaronda.grid(row=2, column=0, pady=5)
 
-# Grid del hud del jugador
+frame_info = tk.Frame(frame_rondas)
+frame_info.grid(row=3, column=0, pady=5)
 
-mensaje_jugador = tk.Frame(hud_jugador)
-tk.Label(mensaje_jugador, estilos_T4).grid(row=0, column=0)
-mensaje_jugador.grid(row=0, column=0)
+lbl_elec_jugador = tk.Label(frame_info, text="El jugador escogió")
+lbl_elec_jugador.grid(row=0, column=0, padx=5, pady=5)
+lbl_elec_jugador_def = tk.Label(frame_info, text="piedrapapeltijera")
+lbl_elec_jugador_def.grid(row=1, column=0, padx=5, pady=5)
 
-botones_jugador = tk.Frame(hud_jugador)
-botones_jugador.grid(row=1, column=0)
+lbl_ganaronda = tk.Label(frame_info, text="Ganador de ronda")
+lbl_ganaronda.grid(row=0, column=1, pady=5)
+lbl_ganador = tk.Label(frame_info, text="Ganador")
+lbl_ganador.grid(row=1, column=1, pady=5)
 
-boton_piedra = tk.Button(botones_jugador, image=piedra_tk)
-boton_piedra.grid(row=0, column=1)
+lbl_elec_computadora = tk.Label(frame_info, text="La computadora escogió")
+lbl_elec_computadora.grid(row=0, column=2, padx=5, pady=5)
+lbl_elec_computadora_def = tk.Label(frame_info, text="piedrapapeltijera")
+lbl_elec_computadora_def.grid(row=1, column=2, padx=5, pady=5)
 
-boton_papel = tk.Button(botones_jugador, image=papel_tk)
-boton_papel.grid(row=0, column=2)
+btn_reiniciar = tk.Button(frame_rondas, text="Reiniciar", command=reiniciar_juego)
+btn_reiniciar.grid(row=4, column=0, pady=5)
 
-boton_tijera = tk.Button(botones_jugador, image=tijera_tk)
-boton_tijera.grid(row=0, column=3)
+# Crear el frame para la zona de la computadora
+frame_computadora = tk.Frame(root)
+frame_computadora.grid(row=1, column=2, padx=10, pady=10)
 
-victorias_jugador = tk.Frame(hud_jugador)
-victorias_jugador.grid(row=2, column=0)
+# Crear los labels para piedra, papel y tijera para la computadora
+texto_computadora = tk.Frame(frame_computadora)
+texto_computadora.grid(row=0, column=0, padx=5, pady=5)
+lbl_computadora = tk.Label(texto_computadora, text="La computadora elegirá")
+lbl_computadora.grid(row=0, column=0, padx=5, pady=5)
 
-texto_vic_jugador = tk.Frame(victorias_jugador)
-tk.Label(texto_vic_jugador, estilos_T10).grid(row=0, column=1)
-texto_vic_jugador.grid(row=0, column=0)
+labels_computadora = tk.Frame(frame_computadora)
+labels_computadora.grid(row=1, column=0, padx=5, pady=5)
+lbl_piedra = tk.Label(labels_computadora, image=img_piedra)
+lbl_piedra.grid(row=0, column=0, pady=5)
+lbl_papel = tk.Label(labels_computadora, image=img_papel)
+lbl_papel.grid(row=0, column=1, pady=5)
+lbl_tijera = tk.Label(labels_computadora, image=img_tijera)
+lbl_tijera.grid(row=0, column=2, pady=5)
 
-contador_vic_jugador = tk.Frame(victorias_jugador)
-tk.Label(contador_vic_jugador, text=0, font=('Times New Roman', 12 ,'bold')).grid(row=0, column=1)
-contador_vic_jugador.grid(row=0, column=1)
+contadores_computadora = tk.Frame(frame_computadora)
+contadores_computadora.grid(row=2, column=0, padx=5, pady=5)
+lbl_vicscomputadora = tk.Label(contadores_computadora, text="Victorias Computadora: ")
+lbl_vicscomputadora.grid(row=0, column=0, padx=5, pady=0)
+lbl_contsviccomputadora = tk.Label(contadores_computadora, text=victorias_computadora)
+lbl_contsviccomputadora.grid(row=0, column=1, padx=5, pady=0)
 
-#Grid del hud de las rondas
+#Mensaje de Victoria
+lbl_campeon = tk.Frame(root)
+lbl_campeon.grid(row=2, column=1, padx=0, pady=5)
+lbl_campeontext = tk.Label(lbl_campeon, text="El ganador del juego es: ")
+lbl_campeontext.grid(row=0, column=0, padx=0, pady=5)
+lbl_campeondef = tk.Label(lbl_campeon, text="jugadorcomputadora")
+lbl_campeondef.grid(row=1, column=0, padx=0, pady=5)
 
-boton_inicio = tk.Button(hud_rondas, text="Iniciar", command=run_game)
-boton_inicio.grid(row=0, column=0, pady=5)
-
-mensaje_rondas = tk.Frame(hud_rondas)
-tk.Label(mensaje_rondas, estilos_T5).grid(row=0, column=0)
-mensaje_rondas.grid(row=1, column=0)
-
-contador_rondas = tk.Frame(hud_rondas)
-tk.Label(contador_rondas, text=0, font=('Times New Roman', 12 ,'bold')).grid(row=0, column=0)
-contador_rondas.grid(row=2, column=0)
-
-info_partida = tk.Frame(hud_rondas)
-info_partida.grid(row=3, column=0)
-
-eleccion_jugador = tk.Frame(info_partida)
-tk.Label(eleccion_jugador, estilos_T7, borderwidth=2, relief="groove").grid(row=0, column=0)
-eleccion_jugador.grid(row=0, column=0, padx=5)
-
-eleccion_jugador_dec = tk.Frame(info_partida)
-tk.Label(eleccion_jugador_dec, text="piedrapapeltijera").grid(row=0, column=0)
-eleccion_jugador_dec.grid(row=1, column=0)
-
-ganador_ronda = tk.Frame(info_partida)
-tk.Label(ganador_ronda, estilos_T8, borderwidth=2, relief="groove").grid(row=0, column=0)
-ganador_ronda.grid(row=0, column=1, padx=5)
-
-ganado_declarado = tk.Frame(info_partida)
-tk.Label(ganado_declarado, text="Ganador").grid(row=0, column=0)
-ganado_declarado.grid(row=1, column=1)
-
-eleccion_computadora = tk.Frame(info_partida)
-tk.Label(eleccion_computadora, estilos_T9, borderwidth=2, relief="groove").grid(row=0, column=0)
-eleccion_computadora.grid(row=0, column=2, padx=5)
-
-eleccion_computadora_dec = tk.Frame(info_partida)
-tk.Label(eleccion_computadora_dec, text="piedrapapeltijera").grid(row=0, column=0)
-eleccion_computadora_dec.grid(row=1, column=2)
-
-boton_reiniciar = tk.Button(hud_rondas, text="Reiniciar")
-boton_reiniciar.grid(row=4, column=0, pady=5)
-
-# Grid del hud de la computadora
-
-mensaje_computadora = tk.Frame(hud_computadora)
-tk.Label(mensaje_computadora, estilos_T6).grid(row=0, column=0)
-mensaje_computadora.grid(row=0, column=0)
-
-botones_computadora = tk.Frame(hud_computadora)
-botones_computadora.grid(row=1, column=0)
-
-boton_piedra = tk.Button(botones_computadora, image=piedra_tk)
-boton_piedra.grid(row=0, column=1)
-
-boton_papel = tk.Button(botones_computadora, image=papel_tk)
-boton_papel.grid(row=0, column=2)
-
-boton_tijera = tk.Button(botones_computadora, image=tijera_tk)
-boton_tijera.grid(row=0, column=3)
-
-victorias_computadora = tk.Frame(hud_computadora)
-victorias_computadora.grid(row=2, column=0)
-
-texto_vic_computadora = tk.Frame(victorias_computadora)
-tk.Label(texto_vic_computadora, estilos_T11).grid(row=0, column=1)
-texto_vic_computadora.grid(row=0, column=0)
-
-contador_vic_computadora = tk.Frame(victorias_computadora)
-tk.Label(contador_vic_computadora, text=0, font=('Times New Roman', 12 ,'bold')).grid(row=0, column=1)
-contador_vic_computadora.grid(row=0, column=1)
-
-#Interior grid_firma
-firma= tk.Label(grid_firma, estilos_T12)
-firma.grid(row=0, column=0)
-
-# Iniciar el bucle principal
-ventana.mainloop()
+# Ejecutar el bucle principal de la ventana
+root.mainloop()
